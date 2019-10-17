@@ -1,4 +1,7 @@
 # freemarker-support-for-netbeans
+
+Forked from [rostanek/freemarker-support-for-netbeans](https://github.com/rostanek/freemarker-support-for-netbeans) to add improvements.
+
 FreeMarker (2.3.23) support for NetBeans IDE including:
 - syntax coloring
 - parsing with error highlighting
