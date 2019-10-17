@@ -129,20 +129,20 @@ public class FTLCompletionItem implements CompletionItem {
 
     @Override
     public CompletionTask createDocumentationTask() {
-        if (type != null) {
-            return new AsyncCompletionTask(new AsyncCompletionQuery() {
-
-                @Override
-                protected void query(CompletionResultSet result, Document doc, int i) {
-                    if (type == Type.DIRECTIVE) {
-                        result.setDocumentation(FTLCompletionItem.getDocForDirective(text));
-                    } else if (type == Type.BUILTIN) {
-                        result.setDocumentation(FTLCompletionItem.getDocForBuiltin(text));
-                    }
-                    result.finish();
-                }
-            });
-        }
+//        if (type != null) {
+//            return new AsyncCompletionTask(new AsyncCompletionQuery() {
+//
+//                @Override
+//                protected void query(CompletionResultSet result, Document doc, int i) {
+//                    if (type == Type.DIRECTIVE) {
+//                        result.setDocumentation(FTLCompletionItem.getDocForDirective(text));
+//                    } else if (type == Type.BUILTIN) {
+//                        result.setDocumentation(FTLCompletionItem.getDocForBuiltin(text));
+//                    }
+//                    result.finish();
+//                }
+//            });
+//        }
         return null;
     }
 
