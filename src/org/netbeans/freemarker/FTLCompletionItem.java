@@ -198,21 +198,19 @@ public class FTLCompletionItem implements CompletionItem {
 
     private static void initBuiltins() {
         builtinGroups = new HashMap<String, String>();
-        try {
-            String content = download(new URL("http://freemarker.org/docs/ref_builtins_alphaidx.html"));
-            int start = content.indexOf("<ul>");
-            int end = content.indexOf("</ul>", start);
-            String index = content.substring(start, end);
-            Pattern pat = Pattern.compile(".*<a href=\"([A-Za-z_#\\.]+)\">([a-z_]+)</a>.*");
-            Matcher mat = pat.matcher(index);
-            while (mat.find()) {
-                String href = mat.group(1);
-                String name = mat.group(2);
-                builtinGroups.put(name, href);
-            }
-        } catch (IOException ex) {
 
+        String content = download(FTLCompletionItem.class.getResource("/org/netbeans/freemarker/doc/builtins.html"));
+        int start = content.indexOf("<ul>");
+        int end = content.indexOf("</ul>", start);
+        String index = content.substring(start, end);
+        Pattern pat = Pattern.compile(".*<a href=\"([A-Za-z_#\\.]+)\">([a-z_]+)</a>.*");
+        Matcher mat = pat.matcher(index);
+        while (mat.find()) {
+            String href = mat.group(1);
+            String name = mat.group(2);
+            builtinGroups.put(name, href);
         }
+
     }
 
     private static String download(URL url) {
@@ -222,7 +220,7 @@ public class FTLCompletionItem implements CompletionItem {
             StringBuilder sb = new StringBuilder(16000);
             while (in.read(buffer) > 0) {
                 sb.append(new String(buffer));
-            }
+    }
             return sb.toString();
         } catch (IOException ex) {
             //Exceptions.printStackTrace(ex);
@@ -237,7 +235,7 @@ public class FTLCompletionItem implements CompletionItem {
 
         public FTLCompletionDocumentation(String text) {
             try {
-                url = new URL("http://freemarker.org/docs/ref_directive_" + text + ".html");
+                url = new URL("https://freemarker.apache.org/docs/ref_directive_" + text + ".html");
             } catch (MalformedURLException ex) {
                 url = null;
             }
@@ -249,16 +247,16 @@ public class FTLCompletionItem implements CompletionItem {
 
         @Override
         public String getText() {
-            if (text == null) {
-                // download documentation
-                String content = download(url);
-                int start = content.indexOf("<div class=\"page-content\">");
-                int end = content.indexOf("<div class=\"bottom-pagers-wrapper\">", start);
-                if (start > 0 && end > 0) {
-                    text = content.substring(start, end);
-                }
-            }
-            return text;
+//            if (text == null) {
+//                // download documentation
+//                String content = download(url);
+//                int start = content.indexOf("<div class=\"page-content\">");
+//                int end = content.indexOf("<div class=\"bottom-pagers-wrapper\">", start);
+//                if (start > 0 && end > 0) {
+//                    text = content.substring(start, end);
+//                }
+//            }
+            return "Embedded documentation was disabled for performance. Please visit online docs for more information.";
         }
 
         @Override
@@ -296,7 +294,7 @@ public class FTLCompletionItem implements CompletionItem {
         public BuiltinDocumentation(String page) {
 
             try {
-                url = new URL("http://freemarker.org/docs/" + page);
+                url = new URL("https://freemarker.apache.org/docs/" + page);
             } catch (MalformedURLException ex) {
                 url = null;
             }
@@ -304,16 +302,16 @@ public class FTLCompletionItem implements CompletionItem {
 
         @Override
         public String getText() {
-            if (text == null) {
-                // download documentation
-                String content = download(url);
-                int start = content.indexOf("<h2 class=\"content-header header-section2\" id=\"" + url.getRef());
-                int end = content.indexOf("<h2", start + 60);
-                if (start > 0 && end > 0) {
-                    text = content.substring(start, end);
-                }
-            }
-            return text;
+//            if (text == null) {
+//                // download documentation
+//                String content = download(url);
+//                int start = content.indexOf("<h2 class=\"content-header header-section2\" id=\"" + url.getRef());
+//                int end = content.indexOf("<h2", start + 60);
+//                if (start > 0 && end > 0) {
+//                    text = content.substring(start, end);
+//                }
+//            }
+            return "Embedded documentation was disabled for performance. Please visit online docs for more information.";
         }
 
         @Override
